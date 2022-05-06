@@ -5,7 +5,7 @@ const { Router } = require('express');
 
 const router = Router();
 
-// Configurar los routers
+// Configurar lsssos routers
 // Ejemplo: router.use('/auth', authRouter);
 
 

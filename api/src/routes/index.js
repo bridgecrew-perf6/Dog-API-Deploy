@@ -1,12 +1,70 @@
 const { Router } = require('express');
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-
+const { Temperament } = require("../db");
+const {
+    getApiInfo,
+    getDbInfo,
+    createDog,
+    getTemperaments,
+  } = require("../functions/model.js");
 
 const router = Router();
 
-// Configurar lsssos routers
-// Ejemplo: router.use('/auth', authRouter);
+router.get("/dogs", (req , res)=>{
+    const dataApi = getApiInfo();
+    const dataDb = getDbInfo();
 
+    let allData = dataApi.concat(dataDb);
+
+    allData.sort((a, b) => {
+        // sort api & db
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          return 1;
+        }
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          return -1;
+        }
+        return 0;
+    });
+    
+    if (req.query.name && req.query.name.length > 1) {
+        let find = allData.find(
+          (el) => el.name.toLowerCase() == req.query.name.toLowerCase()
+        );
+        if (find) return res.status(200).json([find]);
+        else return res.status(404).json({ error: "There is no such race" });
+    }
+    return res.status(200).json(allData);
+});
+
+router.get("/dogs/:idRaza", (req , res)=>{
+    const { idRaza } = req.params; 
+
+    const dataApi = getApiInfo();
+    const dataDb = getDbInfo();
+
+    let allData = dataApi.concat(dataDb);
+
+    const filterInfo = allData.filter(e=> e.id === idRaza);
+
+    return res.status(200).json(filterInfo);
+});
+
+router.get("/temperament", (req, res) => {
+    Temperament.findAll().then(async (response) => {
+      if (response.length == 0) {
+        console.log("The information comes from the api");
+        getTemperaments().then((response) => res.status(200).json(response));
+      } else {
+        console.log("The information comes from the db");
+        return res.status(200).json(response);
+      }
+    });
+});
+
+router.post("/dog", (req,res) => {
+    const {name,height,weight,life_span,image,temperament} = req.body;
+    createDog(name,height,weight,life_span,image,temperament);
+    return res.status(200).json({ msg: "Dog created successfully" });
+})
 
 module.exports = router;

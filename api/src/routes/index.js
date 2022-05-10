@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const { Temperament } = require("../db");
+const router = Router();
+
 const {
     getApiInfo,
     getDbInfo,
@@ -7,14 +9,13 @@ const {
     getTemperaments,
   } = require("../functions/model.js");
 
-const router = Router();
+router.get("/dogs", async (req , res)=>{
+  console.log("llega al get")
 
-router.get("/dogs", (req , res)=>{
-    const dataApi = getApiInfo();
-    const dataDb = getDbInfo();
+    const dataApi = await getApiInfo();
+    const dataDb = await getDbInfo();
 
-    let allData = dataApi.concat(dataDb);
-
+    let allData = [...dataApi,...dataDb];
     allData.sort((a, b) => {
         // sort api & db
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
@@ -36,9 +37,11 @@ router.get("/dogs", (req , res)=>{
     return res.status(200).json(allData);
 });
 
-router.get("/dogs/:idRaza", (req , res)=>{
+router.get("/dogs/:idRaza", async (req , res)=>{
     const { idRaza } = req.params; 
 
+    // :::::::::::::::::::::POSIBLE MEJORA! AGREGAR CONDICIONAL PARA VER SI EL ID
+    //:::::::::::::::::::::: ES DE LA DB O DE LA API     .findByPk()
     const dataApi = getApiInfo();
     const dataDb = getDbInfo();
 
@@ -49,7 +52,8 @@ router.get("/dogs/:idRaza", (req , res)=>{
     return res.status(200).json(filterInfo);
 });
 
-router.get("/temperament", (req, res) => {
+router.get("/temperament", async (req, res) => {
+    console.log("llego aqui")
     Temperament.findAll().then(async (response) => {
       if (response.length == 0) {
         console.log("The information comes from the api");
@@ -61,7 +65,7 @@ router.get("/temperament", (req, res) => {
     });
 });
 
-router.post("/dog", (req,res) => {
+router.post("/dog", async (req,res) => {
     const {name,height,weight,life_span,image,temperament} = req.body;
     createDog(name,height,weight,life_span,image,temperament);
     return res.status(200).json({ msg: "Dog created successfully" });

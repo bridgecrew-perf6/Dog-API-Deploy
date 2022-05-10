@@ -8,7 +8,6 @@ module.exports = {
 
     getApiInfo: async function (){
         let arr = await fetch(`https://api.thedogapi.com/v1/breeds?${YOUR_API_KEY}`).then(res => res.json())
-
         arr.map((el) =>{
             el.createdByDB = false;
             if (el.hasOwnProperty("temperament")) {
@@ -83,7 +82,7 @@ module.exports = {
 
     getTemperaments: async function () {
         const getAllDogs = await fetch(
-          `https://api.thedogapi.com/v1/breeds?${apiKey}`
+          `https://api.thedogapi.com/v1/breeds?${YOUR_API_KEY}`
         ).then((response) => response.json());              //Get all info from API
     
         let getAllTemperaments = getAllDogs

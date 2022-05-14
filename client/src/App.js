@@ -1,10 +1,28 @@
-import './App.css';
+import React, { useEffect } from "react";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Landing from "./pages/Landing.jsx";
+import Home from "./pages/Home.jsx";
+// import CreateRace from "./pages/CreateRace/CreateRace.jsx";
+// import DogDetail from "./pages/DogDetail/DogDetail.jsx";
+// import NotFound from "./pages/404/404";
 
 function App() {
+    useEffect(() => {
+    localStorage.clear();
+  }, []);
+  
   return (
     <div className="App">
-      <h1>Dogs-API</h1>
-      <button>Lets know thems</button>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          {/* <Route path="/createrace" element={<CreateRace />} />
+          <Route path="/dog/:name" element={<DogDetail />} />
+          <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -10,12 +10,12 @@ const {
   } = require("../functions/model.js");
 
 router.get("/dogs", async (req , res)=>{
-  console.log("llega al get")
 
     const dataApi = await getApiInfo();
     const dataDb = await getDbInfo();
 
     let allData = [...dataApi,...dataDb];
+
     allData.sort((a, b) => {
         // sort api & db
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
@@ -53,7 +53,7 @@ router.get("/dogs/:idRaza", async (req , res)=>{
 });
 
 router.get("/temperament", async (req, res) => {
-    console.log("llego aqui")
+    
     Temperament.findAll().then(async (response) => {
       if (response.length == 0) {
         console.log("The information comes from the api");

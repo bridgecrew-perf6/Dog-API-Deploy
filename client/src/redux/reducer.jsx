@@ -1,5 +1,3 @@
-import React from "react";
-
 const initialState = {
   dogs: [],
   temperaments: [],
@@ -16,6 +14,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         temperaments: action.payload,
+    };
+    case 'GET_A_DOG':
+      return {
+        ...state,
+        dogs: action.payload,
     };
     // case 'GET_ALL_COMMENTS_POST':
     //   return{

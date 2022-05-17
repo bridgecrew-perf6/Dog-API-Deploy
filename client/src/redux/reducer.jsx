@@ -20,11 +20,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         dogs: action.payload,
     };
-    // case 'GET_ALL_COMMENTS_POST':
-    //   return{
-    //     ...state,
-    //     commentsPost: action.payload,
-    // };
     // case 'GET_ALL_USERS_POST':
     //   return{
     //     ...state,

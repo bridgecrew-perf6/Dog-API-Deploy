@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import Loading from "./Loading";
 
 function Pagination() {
     const [dogsFromPage, setDogsFromPage] = useState([]);
@@ -78,24 +78,25 @@ function Pagination() {
 
     return (
         <>
-            <ButtonContainer>
-                <Button onClick={prevPage}>Previus</Button>
-                <p>{pages}</p>
-                <Button onClick={nextPage}>Next</Button>
-            </ButtonContainer>
             <Cards>
-                {!dogsFromPage?console.log("Esperando info"):
+                {dogsFromPage.length === 0?<Loading/>:
                     dogsFromPage.map((e) => (
-                        <Card className="body" key={e.id}>
+                        <Card key={e.id}>
                             <Image src={e.image.url} alt={e.name} />
-                            <h2>{e.name}</h2>
-                            <p>{e.life_span}</p>
-                            <Button>More Info</Button>
+                            <Title>{e.name}</Title>
+                            <p>Weight: {e.weight.metric} kg</p>
+                            <Title>Temperaments:</Title>
+                            <p>{e.temperament.map(e=>{return e.name+ " "})}</p>
                         </Card>
                     )
                     )
                 }
             </Cards>
+            <ButtonContainer>
+                <Button onClick={prevPage}>Previus</Button>
+                <p>{pages}</p>
+                <Button onClick={nextPage}>Next</Button>
+            </ButtonContainer>
         </>
     )
 }
@@ -104,53 +105,53 @@ export default Pagination;
 
 
 const Button = styled.button`
-  background: transparent;
-  border-radius: 3px;
-  border: 2px solid blue;
-  color: blue;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-
-  ${props =>
-        props.primary &&
-        css`
-      background: palevioletred;
-      color: white;
-    `};
+    background: grey;
+    border-radius: 3px;
+    border: 2px solid black;
+    color: white;
+    margin: 0 1em;
+    padding: 0.25em 1em;
 `
 
 const Image = styled.img`
-  width: 100%;  height: 100%;
+    width: 250px;
+    height: 180px;
 `
 
 const Card = styled.div`
-  background: transparent;
-  display:flex;
-  flex-direction: column;
-  width: 8rem;
-  border-radius: 3px;
-  border: 2px solid blue;
-  color: blue;
-  margin: 0 1em;
-  padding: 0.25em 1em;
+    background: transparent;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 250px;
+    height: 350px;
+    border-radius: 3px;
+    border: 2px solid grey;
+    color: grey;
+    padding: 5px;
 `
-
+const Title = styled.p`
+    color: black;
+    margin-top: 2px;
+    pading-bottom: 0px;
+    margin-bottom: 0px;
+`
 const Cards = styled.div`
-  display:flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: space-evenly;
-  row-gap: 20px;
-  column-gap: 200px;
-  width: 100vw;
-  height: 50vh;
+    display:flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-around;
+    row-gap: 20px;
+    column-gap: 120px;
 `
 const ButtonContainer = styled.div`
-  display:flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100vw;
-  margin-top: -50px;
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 100;
+    right: 44%;
+    lefth: 50;
+    bottom: 2%;
 `
 

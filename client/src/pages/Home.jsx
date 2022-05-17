@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SearchDog from "./SearchDog"
 import MainPage from "./MainPage"
 
 export default function Home (){
@@ -9,7 +8,6 @@ export default function Home (){
     return(
         <div className="root">
             <div className="container">
-                <SearchDog/>
                 <MainPage/>
             </div>
         </div>

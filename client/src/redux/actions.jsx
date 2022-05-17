@@ -1,8 +1,13 @@
-export function getAllTEmperaments() {
+export function getAllTemperaments() {
+  console.log()
   return async function(dispatch) {
-    const response = await fetch('http://localhost:3001/temperament');
-    const json = await response.json();
-    return dispatch({ type: "GET_ALL_TEMPERAMENTS", payload: json });
+    try{
+      let res = await fetch(`http://localhost:3001/temperament`)
+      .then(response => response.json())
+      return dispatch({ type: "GET_ALL_TEMPERAMENTS", payload: res });
+    }catch(e){
+      console.error(e)
+    }
   };
 }
 
@@ -27,3 +32,4 @@ export function get_a_SingleDog(name) {
 
   };
 }
+

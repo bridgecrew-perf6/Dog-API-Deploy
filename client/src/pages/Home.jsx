@@ -1,9 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import MainPage from "./MainPage"
+import './Home.css'
 
 export default function Home (){
-    let navigate = useNavigate();
 
     return(
         <div className="root">

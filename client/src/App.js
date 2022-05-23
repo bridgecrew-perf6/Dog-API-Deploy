@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing.jsx";
 import Home from "./pages/Home.jsx";
-// import CreateRace from "./pages/CreateRace/CreateRace.jsx";
-// import DogDetail from "./pages/DogDetail/DogDetail.jsx";
-// import NotFound from "./pages/404/404";
+import CreateDog from "./pages/CreateDog.jsx";
+import DogDetail from "./pages/DogDetail.jsx";
+import NotFound from "./pages/404.jsx";
 
 function App() {
     useEffect(() => {
@@ -18,9 +18,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
-          {/* <Route path="/createrace" element={<CreateRace />} />
+          <Route path="/factory" element={<CreateDog />} />
           <Route path="/dog/:name" element={<DogDetail />} />
-          <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

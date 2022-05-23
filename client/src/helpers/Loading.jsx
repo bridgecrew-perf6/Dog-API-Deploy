@@ -23,6 +23,5 @@ function Loading() {
     margin-top: 200px;
     height: 40vh;
     width: 25%;
-
     `
       export default Loading;

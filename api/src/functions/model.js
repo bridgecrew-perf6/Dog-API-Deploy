@@ -46,12 +46,12 @@ module.exports = {
     //::::::::::::::::::::: Create a new Dog :::::::::::::::::::::::::::::::::::::::://
 
     createDog: async function (name,height,weight,life_span,image,temperament) {
-      const temperamento = await Temperament.findAll({      // Busco todos los temperamentos donde coincidan con temperament?
+      const temperamento = await Temperament.findAll({
         where: {
           name: temperament,
         },
       });
-  
+      console.log(temperamento)
       let newDog = await Dog.create({
         name,
         height: {
@@ -64,18 +64,18 @@ module.exports = {
         image,
         createdByDB: true,
       });
-  
+
       return await newDog.addTemperament(temperamento);
     },
 
-    //::::::::::::::::::::: Search a Temperament :::::::::::::::::::::::::::::::::::::::://
+    //::::::::::::::::::::: Create a new Temperament :::::::::::::::::::::::::::::::::::::::://
 
-    searchTemperament: async function (temperament) {
-        await Temperament.findAll({
-            where: {
-              name: temperament,
-            },
-          });
+    createNewTemperament: async function (newTemperament) {  
+      await newTemperament.forEach(async (el) => {     
+        await Temperament.create({                //Se crean teperamentos en la DB
+          name: el,
+        });
+      });
     },
 
     //::::::::::::::::::::: Bring all temp from Api and plus to Db :::::::::::::::::::::::::::::::::::::::://

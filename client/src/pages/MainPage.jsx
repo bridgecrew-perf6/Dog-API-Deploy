@@ -25,7 +25,6 @@ function MainPage() {
     <div className="root">
         <Nav>
           <Order/>
-            {/* <Img src={Pug} className="title" onClick={()=>navigate("/home")}></Img>  */}
             <SearchDog/>
             <Title onClick={()=>navigate("/factory")}>
               <h2 >The Dog Factory</h2>

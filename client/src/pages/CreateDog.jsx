@@ -8,11 +8,11 @@ import Temperaments from "../helpers/Temperaments";
 import { useSelector } from "react-redux";
 
 
-
 export default function CreateDog (){
     let AllTempsForNewDog = useSelector(status => status.temperamentsForNewDog)
     let newTempControl = useSelector(status => status.newTempControl)
-    
+    // let newTempControl = useSelector(status => status.newTempControl)
+
     const [errors, setErrors] = useState({});     //Creo un estado dentro del cual veo el estado de los errores. Si lo que estoy ingresando es valido o no
     const [body, setBody] = useState({
         name: "",
@@ -30,7 +30,6 @@ export default function CreateDog (){
     useEffect(() => {
         setErrors(validate({                 
             ...body,
-            temperament: "Not"
         }));
     }, []);
 
@@ -40,27 +39,13 @@ export default function CreateDog (){
             ...body,
             temperament: AllTempsForNewDog
         });
-        if(AllTempsForNewDog.length > 0 && newTempControl.length === 0){
+        if(AllTempsForNewDog.length > 0){
             setErrors(validate({  
                 ...body,
                 temperament: "Ok"
             }));
         }
-        if (AllTempsForNewDog.length > 0 && newTempControl.length > 0){
-            if(newTempControl.match(/[0-9]/)){
-                setErrors(validate({  
-                    ...body,
-                    temperament: "123"
-                }));
-            }
-            if(newTempControl.match(/  /)){
-                setErrors(validate({  
-                    ...body,
-                    temperament: "2Space"
-                }));
-            }
-        }
-        if (AllTempsForNewDog.length === 0 && newTempControl.length === 0){
+        if (AllTempsForNewDog.length === 0){
             setErrors(validate({  
                 ...body,
                 temperament: "Not"
@@ -75,7 +60,8 @@ export default function CreateDog (){
             [e.target.name]: e.target.value 
         });
         setErrors(validate({  
-            ...body,                  
+            ...body,
+            temperament: "Not",                  
             [e.target.name]: e.target.value
         }));
     }
@@ -116,10 +102,10 @@ export default function CreateDog (){
             <Fild>
                 <label>HEIGTH: </label> 
                 <Input placeholder="Min Height" className={errors.height_min && 'danger'} 
-                type="number" name="height_max" onChange={handleInputChange} required/>
+                type="number" name="height_min" onChange={handleInputChange} required/>
 
                 <Input placeholder="Max Height" className={errors.height_max && 'danger'} 
-                type="number" name="height_min" onChange={handleInputChange} required/>
+                type="number" name="height_max" onChange={handleInputChange} required/>
 
                 {errors.height_max && (<Error className="danger">{errors.height_max}</Error>)}
                 {errors.height_min && (<Error className="danger">{errors.height_min}</Error>)}
@@ -128,10 +114,10 @@ export default function CreateDog (){
             <Fild>
                 <label>WEIGHT: </label>
                 <Input placeholder="Min Weight" className={errors.weight_min && 'danger'} 
-                type="number" name="weight_max" onChange={handleInputChange} required/>
+                type="number" name="weight_min" onChange={handleInputChange} required/>
 
                 <Input placeholder="Max Weight" className={errors.weight_max && 'danger'} 
-                type="number" name="weight_min" onChange={handleInputChange} required/>
+                type="number" name="weight_max" onChange={handleInputChange} required/>
 
                 {errors.weight_max && (<Error className="danger">{errors.weight_max}</Error>)}
                 {errors.weight_min && (<Error className="danger">{errors.weight_min}</Error>)}
@@ -161,7 +147,7 @@ export default function CreateDog (){
 
             <hr></hr>
 
-            <ButtonInput disabled={errors && !(errors.temperament === "")} type="submit" name="Create Dog" value="Create a Dog"/>
+            <ButtonInput disabled={errors && !(errors.temperament === '')} type="submit" name="Create Dog" value="Create a Dog"/>
 
             <hr></hr>
             <hr></hr>

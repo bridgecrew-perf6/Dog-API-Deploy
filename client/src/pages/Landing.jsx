@@ -10,8 +10,8 @@ export default function Landing (){
     return(
         <Div>
             <Container>
-                <div>Welcome to DogsAPI</div>
-                <p>Find all information of dogs</p>
+                <h1>Welcome to DogsAPI</h1>
+                <P>Find all information of dogs</P>
                 <Button onClick={()=>navigate("/home")}>Lets get started</Button>
             </Container>
         </Div>
@@ -35,12 +35,14 @@ const Container = styled.div`
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-    text-aling: center;
     width: 250px;
     height: 250px;
     background-color:#36373A;
     border: 3px solid white;
     border-radius: 5%;
+    h1{
+        color: white;
+    }
 `
 
 const Button = styled.button`
@@ -51,4 +53,14 @@ const Button = styled.button`
     margin: 0 1em;
     padding: 0.25em 2em;
     cursor: pointer;
+    transition: all 300ms;
+    &:hover{
+        color: white;
+        background: grey;
+    }
+`
+
+const P = styled.p`
+    color: #ddd;
+
 `

@@ -21,7 +21,7 @@ export default function SearchDog (){
         <div className="root">
             <div className="container">
                 <form onSubmit={handleSubmit}>
-                    <Input type="text" name='dogsName' placeholder='Tipe a breed' onChange={handleInputChange}  value={input} />                 
+                    <Input autoComplete="off" type="text" name='dogsName' placeholder='Tipe a breed' onChange={handleInputChange}  value={input} />                 
                     <Button type="button" value="Search a DOG" onClick={handleSubmit}></Button>
                 </form>
             </div>

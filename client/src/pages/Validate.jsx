@@ -1,4 +1,3 @@
-
 export default function validate(body) {                       //Funcion externa para validar
 
     let errors = {}
@@ -10,7 +9,7 @@ export default function validate(body) {                       //Funcion externa
     if(body.name.match(/  /)) errors.name = 'The name cannot contain more than two spaces'
 
     //HEIGHT VALIDATE
-    if(Number(body.height_max) >= Number(body.height_min)) {
+    if(Number(body.height_max) <= Number(body.height_min)) {
         errors.height_min = ' '
         errors.height_max = 'The height max must be mayor than height min'
     }
@@ -24,7 +23,7 @@ export default function validate(body) {                       //Funcion externa
     }
 
     //WEIGHT VALIDATE
-    if(Number(body.weight_max) >= Number(body.weight_min)) {
+    if(Number(body.weight_max) <= Number(body.weight_min)) {
         errors.weight_min = ' '
         errors.weight_max = 'The weight max must be mayor than weight min'
     }
@@ -55,19 +54,8 @@ export default function validate(body) {                       //Funcion externa
     if (!body.image_url) errors.image_url = 'The URL image is required';
 
     //TEMPERAMENT VALIDATE
-    if(body.temperament === 'Ok') {
-        errors.temperament = ''
-    }
-    if(body.temperament === '123') {
-        // console.log(body.temperament)    
-        errors.temperament = 'The temperament cannot contain numbers'
-    }
-    if(body.temperament === '2Space') errors.temperament = 'The temperament contain more than two spaces'
-    if(body.temperament === 'Not') {
-        errors.temperament = 'The temperament is not set'
-        console.log(errors.temperament)
-    }
-
+    if(body.temperament === 'Ok')errors.temperament = ''
+    if(body.temperament === 'Not')errors.temperament = 'The temperament is not set'
 
     return errors;
 }

@@ -1,15 +1,24 @@
 import React, {useEffect, useState} from "react";
 import styled from 'styled-components'
 import { useSelector, useDispatch } from "react-redux";
-import { setNewTemperament, setDogTemperament, newTemperamentControl, getAllTemperaments} from "../redux/actions";
+import { setDogTemperament, newTemperamentControl, getAllTemperaments} from "../redux/actions";
 import axios from "axios"
+import './Temperaments.css'
 
+function validate(newTemperament) {                       //Funcion externa para validar
+    let errors = {}
+    console.log(newTemperament)
+    if(newTemperament.match(/[0-9]/)) errors.newTemperament = 'The new temperament cannot contain numbers'
+    if(newTemperament.match(/  /)) errors.newTemperament = 'The new temperament cannot contain more than two spaces'
+    return errors;
+}
 
 export default function Temperaments() {
     const dispatch = useDispatch()
     let temperaments = useSelector((state) => state.temperaments);
     const [temperamentList, setTemperaments] = useState([])
     const [newTemperament, setNewTemp] = useState("")
+    const [error, setError] = useState({});     //Creo un estado dentro del cual veo el estado de los errores. Si lo que estoy ingresando es valido o no
 
 
     useEffect(() => {
@@ -27,6 +36,7 @@ export default function Temperaments() {
     const handleInputChange = (e) => {   
         setNewTemp(e.target.value)
         dispatch(newTemperamentControl(e.target.value))
+        setError(validate(e.target.value));
     }
 
     const handleSubmitTemp = (e) => {
@@ -68,8 +78,10 @@ export default function Temperaments() {
                 <div>
                     <p>Or create a new temperament: </p>
                     <form onSubmit={handleSubmitTemp}>
-                        <input placeholder="Enter a new temperament" type="text" name="temperament" onChange={handleInputChange} value={newTemperament} />
-                        <ButtonInput onClick={handleSubmitTemp} type="button" value="Add new Temp" disabled={!newTemperament}/>
+                        <input placeholder="Enter a new temperament" className={error.newTemperament && 'danger'}  type="text" name="temperament" onChange={handleInputChange} value={newTemperament} />
+                        {error.newTemperament && (<Error className="danger">{error.newTemperament}</Error>)} 
+                        
+                        <ButtonInput onClick={handleSubmitTemp} type="button" value="Add new Temp" disabled={error.newTemperament}/>
                     </form>
                 </div>
             </Contanier>
@@ -107,4 +119,9 @@ const Display = styled.div`
         flex-direction: row;
         margin:5px;
     }
+`
+
+const Error = styled.p`
+    color: red;
+    font-size: 15px;
 `

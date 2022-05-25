@@ -90,7 +90,7 @@ router.get("/dogs/:idRaza", async (req , res)=>{
     const { idRaza } = req.params;
 
     let filterInfo = 0;
-    if(idRaza > 264){
+    if(idRaza.length > 3){
       const dataDb = await getDbInfo();
       filterInfo = await dataDb.filter(e=> e.id == idRaza);
     } else {

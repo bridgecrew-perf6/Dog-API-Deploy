@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {getAllDogs, getAllTemperaments, sort } from "../redux/actions";
+import {getAllDogs, getAllTemperaments } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../helpers/Pagination";
 import Filters from "../helpers/Filters";
@@ -13,10 +13,10 @@ function MainPage() {
     const dispatch = useDispatch();
     let navigate = useNavigate();
     
-    useEffect(() => {
-        dispatch(getAllDogs());
-        dispatch(getAllTemperaments());    
-      },[]);
+    // useEffect(() => {
+    //     dispatch(getAllDogs());
+    //     dispatch(getAllTemperaments());    
+    //   },[]);
 
     let dogs = useSelector((state) => state.dogs);
 

@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components'
 
 import background from '../img/perros.gif'
+import { getAllDogs, getAllTemperaments } from "../redux/actions";
 
 export default function Landing (){
+    let dispatch = useDispatch()
     let navigate = useNavigate();
 
+    useEffect(() => {
+        dispatch(getAllDogs());
+        dispatch(getAllTemperaments());    
+      },[]);
+      
     return(
         <Div>
             <Container>

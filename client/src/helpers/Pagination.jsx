@@ -13,7 +13,9 @@ function Pagination() {
     const [allActualDogs, setAllDogs] = useState([]);
     const [current_page, setCurrentPage] = useState(1);
     const [pages, SetPages] = useState(1);
-    
+
+    let allDogs = useSelector((state) => state.dogs);
+
     let dogs = useSelector((state) => state.ordersDogs);
     var dogsFiltres = useSelector((state) => state.dogsFiltres);
 
@@ -24,7 +26,7 @@ function Pagination() {
         changePage(1)
         SetPages(1)
         setCurrentPage(1)
-    }, [dogs, dogsFiltres]);
+    }, [dogs, dogsFiltres, allDogs]);
 
     function bringPageDogs(inicio, fin) {
         if(dogs.error){

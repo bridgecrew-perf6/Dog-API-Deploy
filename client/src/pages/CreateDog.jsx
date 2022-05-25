@@ -30,6 +30,7 @@ export default function CreateDog (){
     useEffect(() => {
         setErrors(validate({                 
             ...body,
+            temperament: "Not"
         }));
     }, []);
 
@@ -59,11 +60,24 @@ export default function CreateDog (){
             ...body,
             [e.target.name]: e.target.value 
         });
-        setErrors(validate({  
-            ...body,
-            temperament: "Not",                  
-            [e.target.name]: e.target.value
-        }));
+        if(AllTempsForNewDog.length > 0){
+            setErrors(validate({  
+                ...body,
+                [e.target.name]: e.target.value,
+                temperament: "Ok"
+            }));
+        }
+        if (AllTempsForNewDog.length === 0){
+            setErrors(validate({  
+                ...body,
+                [e.target.name]: e.target.value,
+                temperament: "Not"
+            }));
+        }
+        // setErrors(validate({  
+        //     ...body,                 
+        //     [e.target.name]: e.target.value
+        // }));
     }
 
     function onSubmit(e){

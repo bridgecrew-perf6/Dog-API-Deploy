@@ -21,9 +21,9 @@ function Pagination() {
     let dispatch = useDispatch()
 
     useEffect(() => {
-        changePage(pages)
-        SetPages(pages)
-        setCurrentPage(current_page)
+        changePage(1)
+        SetPages(1)
+        setCurrentPage(1)
     }, [dogs, dogsFiltres]);
 
     function bringPageDogs(inicio, fin) {

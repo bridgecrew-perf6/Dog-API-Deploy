@@ -68,7 +68,7 @@ export default function Temperaments() {
                     
                 </Display>
                 <div>
-                    <p>Select a temperament of the existent: </p>
+                    <p>Select an existing temperament: </p>
                     {!temperaments?<p>Esperando temperamentos</p>:
                         temperaments.map(e=>
                             <label key={e.id}><input type="checkbox" value={e.name} onChange={handlerSelection} key={e.id}/>{e.name}</label>
@@ -108,6 +108,7 @@ const Contanier = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 130%;
 `
 const Display = styled.div`
     display: flex;
@@ -117,7 +118,7 @@ const Display = styled.div`
     div{
         display:flex;
         flex-direction: row;
-        margin:5px;
+        margin:10px;
     }
 `
 

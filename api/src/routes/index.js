@@ -15,7 +15,23 @@ router.get("/dogs", async (req , res)=>{
     const dataApi = await getApiInfo();
     const dataDb = await getDbInfo();
 
-    let allData = [...dataApi,...dataDb];
+    let allData = [...dataApi,...dataDb]; 
+
+    //>>>>>>>>>> BUG DE BULDOG <<<<<<<<<<<<<<<
+
+    allData.forEach((el) => {
+      if (el.name == "French Bulldog") {
+        el.weight.metric = "9 - 13";
+      }
+      if(el.name == "Olde English Bulldogge"){
+        el.weight.metric = "12 - 17";
+      }
+      if (!el.weight.metric.includes("-")) {
+        el.weight.metric = `0 - ${el.weight.metric}`;
+      }
+    });
+
+    //>>>>>>>>>>>>>>><<<<<<<<<<<<<<<
 
     allData.sort((a, b) => {
         // sort api & db
@@ -63,8 +79,6 @@ router.get("/dogs", async (req , res)=>{
             allSearch = [...arr]
           }
           
-          console.log(allSearch)
-
           if(!allSearch) return res.status(400).json("Error")
           return res.status(200).json(allSearch)
       
@@ -73,18 +87,18 @@ router.get("/dogs", async (req , res)=>{
 });
 
 router.get("/dogs/:idRaza", async (req , res)=>{
-    const { idRaza } = req.params; 
+    const { idRaza } = req.params;
 
-    // :::::::::::::::::::::POSIBLE MEJORA! AGREGAR CONDICIONAL PARA VER SI EL ID
-    //:::::::::::::::::::::: ES DE LA DB O DE LA API     .findByPk()
-    const dataApi = getApiInfo();
-    const dataDb = getDbInfo();
-
-    let allData = dataApi.concat(dataDb);
-
-    const filterInfo = allData.filter(e=> e.id === idRaza);
-
-    return res.status(200).json(filterInfo);
+    let filterInfo = 0;
+    if(idRaza > 264){
+      const dataDb = await getDbInfo();
+      filterInfo = await dataDb.filter(e=> e.id == idRaza);
+    } else {
+      const dataApi = await getApiInfo();
+      filterInfo = await dataApi.filter(e=> e.id == idRaza);
+    }
+    if(filterInfo.length === 0)return res.status(400).json("Id not found")
+    return res.status(200).json([...filterInfo]);
 });
 
 

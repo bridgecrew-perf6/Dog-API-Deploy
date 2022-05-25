@@ -51,3 +51,15 @@ export function setNewTemperament(temperament) {
 export function setDogTemperament(temperament) {
   return { type: "SET_DOG_TEMPERAMENT", payload: temperament};
 }
+
+export function getDogByID(id) {
+  return async function(dispatch) {
+  try{
+      let res = await fetch(`http://localhost:3001/dogs/${id}`)
+      .then(response => response.json())
+      return dispatch({ type: "GET_DOG_BY_ID", payload: res });
+  }catch(e){
+      console.error(e)
+  }
+  };
+}

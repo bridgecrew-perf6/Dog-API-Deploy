@@ -6,6 +6,7 @@ import Home from "./pages/Home.jsx";
 import CreateDog from "./pages/CreateDog.jsx";
 import DogDetail from "./pages/DogDetail.jsx";
 import NotFound from "./pages/404.jsx";
+import DogsID from "./pages/DogsID.jsx";
 
 function App() {
     useEffect(() => {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/factory" element={<CreateDog />} />
           <Route path="/dog/:name" element={<DogDetail />} />
+          <Route path="/dogs/:id" element={<DogsID />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
